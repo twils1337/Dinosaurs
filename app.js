@@ -156,7 +156,7 @@ function generateCell(dino, human) {
   const cell = document.createElement('div');
   cell.className = 'grid-item';
   const cellHeader = document.createElement('h3');
-  cellHeader.innerText = dataSource.species;
+  cellHeader.innerText = dataSource == dino ? dataSource.species : dataSource.name;
   const image = document.createElement('img');
   image.src = `images/${dataSource.species.toLowerCase()}.png`;
   cell.appendChild(cellHeader);
