@@ -91,7 +91,7 @@ const dinos = [
     'Herbivore',
     'World Wide',
     'Holocene',
-    'Actually a flying reptile, the Pteranodon is not a dinosaur.'
+    'All birds are living dinosaurs.'
   )
 ];
 
