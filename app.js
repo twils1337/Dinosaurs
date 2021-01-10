@@ -1,10 +1,10 @@
 // Create Constructors
 
 function BaseAnimal(species, weight, height, diet) {
-    this.species = species;
-    this.weight = weight;
-    this.height = height;
-    this.diet = diet;
+  this.species = species;
+  this.weight = weight;
+  this.height = height;
+  this.diet = diet;
 }
 
 function Dino(species, weight, height, diet, where, when, fact) {
@@ -20,7 +20,7 @@ function Human(name, height, weight, diet) {
 }
 
 // Create Dino Objects
-let dinos = [
+const dinos = [
   new Dino(
     'Triceratops',
     13000,
@@ -92,16 +92,17 @@ let dinos = [
     'World Wide',
     'Holocene',
     'Actually a flying reptile, the Pteranodon is not a dinosaur.'
-  ),
+  )
 ];
 
 // Create Human Object
 // Use IIFE to get human data from form
-let getHumanData = function () {
-  return (function () {
+const getHumanData = function() {
+  return (function() {
     return new Human(
       document.getElementById('name').value,
-      +document.getElementById('feet').value * 12 + +document.getElementById('inches').value,
+      +document.getElementById('feet').value * 12 +
+        +document.getElementById('inches').value,
       +document.getElementById('weight').value,
       document.getElementById('diet').value
     );
@@ -111,92 +112,95 @@ let getHumanData = function () {
 // NOTE: Weight in JSON file is in lbs.
 // Create Dino Compare Method 1
 function compareWeight(dino, human) {
-    let heaviestAnimal = dino.weight > human.weight ? 'dinosaur' : 'human';
-    let lightestAnimal =  dino.weight > human.weight ? 'human' : 'dinosaur'
-    return `This ${heaviestAnimal} weighs ${Math.abs(dino.weight - human.weight)} more lbs. than this ${lightestAnimal}.`;
+  const heaviestAnimal = dino.weight > human.weight ? 'dinosaur' : 'human';
+  const lightestAnimal = dino.weight > human.weight ? 'human' : 'dinosaur';
+  return `This ${heaviestAnimal} weighs ${Math.abs(
+    dino.weight - human.weight
+  )} more lbs. than this ${lightestAnimal}.`;
 }
 
 // Create Dino Compare Method 2
 // NOTE: Heightin JSON file is in inches.
 function compareHeight(dino, human) {
-    let tallestAnimal = dino.height > human.height ? 'dinosaur' : 'human';
-    let shortestAnimal =  dino.height > human.height ? 'human' : 'dinosaur';
-    return `This ${tallestAnimal} is ${Math.abs(dino.height - human.height)} in. taller than this ${shortestAnimal}.`;
-  }
+  const tallestAnimal = dino.height > human.height ? 'dinosaur' : 'human';
+  const shortestAnimal = dino.height > human.height ? 'human' : 'dinosaur';
+  return `This ${tallestAnimal} is ${Math.abs(
+    dino.height - human.height
+  )} in. taller than this ${shortestAnimal}.`;
+}
 
 // Create Dino Compare Method 3
 function compareDiet(dino, human) {
-    if (dino.diet === human.diet){
-        return `Both dinosaur and human both have a ${dino.diet} diet.`;
-    }
-    else{
-        return `This dinosar eats a ${dino.diet} diet and this human eats a ${human.diet} diet.`;
-    }
+  if (dino.diet === human.diet) {
+    return `Both dinosaur and human both have a ${dino.diet} diet.`;
+  } else {
+    return `This dinosar eats a ${dino.diet} diet and this human eats a ${human.diet} diet.`;
   }
+}
 
 // Generate Tiles for each Dino in Array
 function generateTiles() {
-  let human = getHumanData();
-  let grid = document.getElementById('grid');
-  for (i = 0; i < 4; ++i){
-      grid.appendChild(generateCell(dinos[i], human));
+  const human = getHumanData();
+  const grid = document.getElementById('grid');
+  for (let i = 0; i < 4; ++i) {
+    grid.appendChild(generateCell(dinos[i], human));
   }
   grid.appendChild(generateCell(null, human));
-  for (i = 4; i < dinos.length; ++i){
+  for (let i = 4; i < dinos.length; ++i) {
     grid.appendChild(generateCell(dinos[i], human));
   }
 }
 
-function generateCell(dino, human){
-    var dataSource = dino != null ? dino : human;
-    let cell = document.createElement('div');
-    cell.className = 'grid-item';
-    let cellHeader = document.createElement('h3');
-    cellHeader.innerText = dataSource.species;
-    let image = document.createElement('img');
-    image.src = `images/${dataSource.species.toLowerCase()}.png`; 
-    cell.appendChild(cellHeader);
-    cell.appendChild(image);
-    if (dataSource === dino){
-        let fact = document.createElement('div');
-        fact.style = "width:auto;"
-        fact.innerText = `Fact: ${getFact(dino, human)}`;
-        cell.appendChild(fact);
-    }
-    return cell;
+function generateCell(dino, human) {
+  const dataSource = dino != null ? dino : human;
+  const cell = document.createElement('div');
+  cell.className = 'grid-item';
+  const cellHeader = document.createElement('h3');
+  cellHeader.innerText = dataSource.species;
+  const image = document.createElement('img');
+  image.src = `images/${dataSource.species.toLowerCase()}.png`;
+  cell.appendChild(cellHeader);
+  cell.appendChild(image);
+  if (dataSource === dino) {
+    const fact = document.createElement('div');
+    fact.style = 'width:auto;';
+    fact.innerText = `Fact: ${getFact(dino, human)}`;
+    cell.appendChild(fact);
+  }
+  return cell;
 }
 
-function getFact(dino, human){
-    if (dino.species === 'Pigeon'){
+function getFact(dino, human) {
+  if (dino.species === 'Pigeon') {
+    return dino.fact;
+  } else {
+    switch (Math.floor(Math.random() * 4)) {
+      case 0:
+        return compareWeight(dino, human);
+      case 1:
+        return compareHeight(dino, human);
+      case 2:
+        return compareDiet(dino, human);
+      default:
         return dino.fact;
     }
-    else{
-        switch(Math.floor(Math.random() * 4)){
-            case 0:
-                return compareWeight(dino, human);
-            case 1:
-                return compareHeight(dino, human)
-            case 2:
-                return compareDiet(dino, human);
-            default:
-                return dino.fact;
-        }
-    }
+  }
 }
 
 // Add tiles to DOM
 // Remove form from screen
 // On button click, prepare and display infographic
+// eslint-disable-next-line no-unused-vars
 function togglePage(showForm) {
-    const form = document.getElementById('dino-compare');
-    const grid =  document.getElementById('grid');
-    if (showForm) {
-        form.style.display = 'flex';
-        grid.style.display = 'none';
-        grid.innerHTML = '';
-    } else {
-        form.style.display = 'none';
-        grid.style.display = 'flex';
-        generateTiles();
-    }
+  const form = document.getElementById('dino-compare');
+  const grid = document.getElementById('grid');
+  if (showForm) {
+    form.style.display = 'flex';
+    grid.style.display = 'none';
+    grid.innerHTML = '';
+  } else {
+    form.style.display = 'none';
+    grid.style.display = 'flex';
+    generateTiles();
+  }
 }

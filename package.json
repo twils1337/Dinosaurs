@@ -1,0 +1,27 @@
+{
+  "name": "dinosaurs",
+  "version": "1.0.0",
+  "description": "You will be building an infographic that is derived from data that is provided, as well as user input data. Object-oriented javascript is great for working with complex data, but it’s not of much use without an interface to interact with. You will be pulling in information from a form and using it to complete an array of objects that will then be appended back to the DOM.",
+  "main": "app.js",
+  "dependencies": {},
+  "devDependencies": {
+    "eslint": "^7.17.0",
+    "eslint-config-standard": "^16.0.2",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/twils1337/Dinosaurs.git"
+  },
+  "author": "Tyler Wilson",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/twils1337/Dinosaurs/issues"
+  },
+  "homepage": "https://github.com/twils1337/Dinosaurs#readme"
+}
